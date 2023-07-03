@@ -1,18 +1,34 @@
+const notes = [];
+
 const createNoteBtn = document.querySelector('#js-create-note-btn');
-createNoteBtn.addEventListener('click', (event) => {
+createNoteBtn.addEventListener('click', onClickCreateNote);
+
+function onClickCreateNote() {
   const descriptionNode = document.querySelector('#js-input-note-description');
   const descriptionValue = descriptionNode.value;
+
+  if(!descriptionValue) {
+    alert('You cannot create an empty note!');
+    return;
+  };
 
   const newNote = {
     description: descriptionValue
   };
   
-  createNote(newNote);
+  notes.push(newNote);
+
+  const notesContainer = document.querySelector('#notes-container');
+  notesContainer.innerHTML = '';
+
+  for (const note of notes) {
+    createNote(note, notesContainer);
+  };
 
   descriptionNode.value = '';
-});
+}
 
-function createNote(note) {
+function createNote(note, container) {
   const noteContainerNode = document.createElement('div');
   noteContainerNode.classList.add('note-created');
 
@@ -22,6 +38,5 @@ function createNote(note) {
 
   noteContainerNode.appendChild(noteDescriptionNode);
   
-  const notesContainer = document.querySelector('#notes-container');
-  notesContainer.appendChild(noteContainerNode);
+  container.appendChild(noteContainerNode);
 };
