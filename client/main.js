@@ -1,4 +1,4 @@
-
+const notesCreated = [];
 
 createNote();
 
@@ -11,18 +11,26 @@ function createNote() {
     });
 
   function addDescription() {
-      // 1. get acces to the input element
-      // 2. save the text added inside the input (value) in a variable
+      // 1.save the text added (value) inside the input, in a variable
     const inputElem = document.querySelector('#js-input-note-creator');
     const inputTextElem = inputElem.value;
 
-      // 3.get acces to the description section of the note
-      // 4.display the text added in the input, in this note description
+      // 2.create an object with 2 keys value pairs, based on how my note will "look"
+          // title: '',
+          // description: inputTextElem
+    const note = {
+      title: '',
+      description: inputTextElem
+    };
+
+      // 3.push the "note" object to the "notesCreated" array
+    notesCreated.push(note);
+
+      // 3.display the text added in the input, in this note description
     const noteDescriptionElem = document.querySelector('#js-note-description');
     noteDescriptionElem.innerHTML = inputTextElem;
 
       // 5.save the note description into local storage
-    console.log(localStorage.setItem('description', inputTextElem));
   };
 
   function addInputTitle() {
@@ -32,8 +40,9 @@ function createNote() {
     noteTitleElem.addEventListener('input', (event) => {
       const inputValue = event.target.value;
       // 3.save the note title into local storage
-      console.log(localStorage.setItem('noteTitle', inputValue));
     });
   };
 };
+
+console.log(notesCreated);
 
